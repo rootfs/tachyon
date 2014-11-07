@@ -64,6 +64,16 @@ Then update configurations in `ec2-config.yml` and shell environment variables `
 
 Run `vagrant up --provider=aws [--no-parallel]` to create EC2 instances.
 
+## OpenStack Provider
+
+Install openstack vagrant plugin first. To date, 0.8.0 plugin is tested.
+
+    `vagrant plugin install vagrant-openstack-plugin`
+
+Then update configurations in `openstack-config.yml` and shell environment variables `OS_USERNAME` and `OS_PASSWORD`.
+
+Run `run_openstack.sh` to create OpenStack Compute Node instances.
+
 ## Examples of Running VirtualBox Clusters Using Glusterfs as Underfilesystem
 
 A sample `init.yml.glusterfs` is provided. Copy or link it to `init.yml`. Make sure parameter `Ufs`
@@ -77,6 +87,18 @@ Then start the clusters.
 
 A sample `init.yml.aws` is provided. Copy or link it to `init.yml`. Make sure parameter `Ufs` is
 `hadoop2` and `Provider` is `aws`. Change the rest of parameters, especially network addresses, to
+what you want if necessary.
+
+Then start the clusters.
+
+    vagrant up --provider=aws [--no-parallel]
+
+The `no-parallel` option starts the cluster nodes serially.
+
+## Examples of Running OpenStack Compute Node Clusters Using HDFS 2.4 as Underfilesystem
+
+A sample `init.yml.os` is provided. Copy or link it to `init.yml`. Make sure parameter `Ufs` is
+`hadoop2` and `Provider` is `openstack`. Change the rest of parameters, especially network addresses, to
 what you want if necessary.
 
 Then start the clusters.

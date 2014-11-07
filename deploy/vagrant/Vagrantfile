@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     name = NameArr[i]
     config.vm.define "#{name}" do |n|
       # common config
-      if File.exist?(OVERWRITE_HOSTS)
+      if File.exist?(OVERWRITE_HOSTS) && Provider == "openstack"
         n.vm.provision "file", source: OVERWRITE_HOSTS, destination: "/vagrant/files/hosts"
       end
       n.vm.provision "shell", path: "init.sh"
