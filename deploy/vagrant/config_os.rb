@@ -8,7 +8,7 @@ def config_os(config, i, total, name)
     os.username     = ENV['OS_USERNAME']
     os.api_key      = ENV['OS_PASSWORD']
     os.flavor       = FLAVOR
-    os.image        = /CentOS/
+    os.image        = /#{Regexp.quote(IMAGE)}/
     os.endpoint     = KEYSTONE
     os.security_groups = SECURITY_GROUP
     os.ssh_username = SSH_USERNAME

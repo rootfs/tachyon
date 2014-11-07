@@ -1,9 +1,10 @@
 #!/bin/sh
 # uncomment it for debugging
 #set -x
+ID=`whoami`
 mkdir -p /vagrant/shared
 cd /vagrant/shared
-
+sudo yum install -y -q wget 
 # install maven
 if [ ! -f apache-maven-3.2.3-bin.tar.gz ]
 then
@@ -32,7 +33,7 @@ EOF
         # generate key
         ssh-keygen -f ${src}/id_rsa -t rsa -N ''
         # ssh without password
-        cat ${src}/id_rsa.pub |awk '{print $1, $2, "root@vagrant"}' > ${src}/authorized_keys2
+        cat ${src}/id_rsa.pub |awk '{print $1, $2, "${ID}@vagrant"}' > ${src}/authorized_keys2
     fi
     files=('authorized_keys2' 'id_rsa' 'id_rsa.pub')
     for f in ${files[@]}

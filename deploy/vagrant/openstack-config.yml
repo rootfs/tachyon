@@ -1,6 +1,6 @@
 Flavor: "m1.small"
 # Regex or String
-Image:  "/CentOS/"
+Image:  "CentOS"
 # e.g. "#{ENV['OS_AUTH_URL']}/tokens"
 Keystone_URL: "http://control.os1.phx2.redhat.com:5000/v2.0/tokens"
 Key_Path: "./hchen.pem"

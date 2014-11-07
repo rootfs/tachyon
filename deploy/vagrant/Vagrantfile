@@ -35,7 +35,7 @@ for i in (1..Total)
 end
 file.close unless file == nil
 hosts.close unless hosts == nil
-
+OVERWRITE_HOSTS = "files/hosts.overwrite"
 # Vagrantfile API/syntax version. 
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.require_version ">= 1.6.5"
@@ -45,6 +45,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     name = NameArr[i]
     config.vm.define "#{name}" do |n|
       # common config
+      if File.exist?(OVERWRITE_HOSTS)
+        n.vm.provision "file", source: OVERWRITE_HOSTS, destination: "/vagrant/files/hosts"
+      end
       n.vm.provision "shell", path: "init.sh"
       n.vm.provision "shell", path: Init
 
