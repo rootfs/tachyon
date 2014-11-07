@@ -18,7 +18,6 @@ Post = "#{Ufs}"+"/post.sh"
 NameArr = Array.new
 file = File.open("../../conf/slaves","w")
 system 'mkdir', '-p', './files'
-hosts = File.open("files/hosts","w")
 for i in (1..Total)
   if i == Total 
     NameArr[i] = "TachyonMaster"
@@ -28,13 +27,28 @@ for i in (1..Total)
   if file != nil
      file.write(NameArr[i] + ".local"  + "\n")
   end
-  if hosts != nil
-     hosts.write(Addr[i - 1] + " " + 
-                 NameArr[i] + ".local" + "\n")
-  end
 end
 file.close unless file == nil
-hosts.close unless hosts == nil
+
+if Provider != "openstack"
+  hosts = File.open("files/hosts","w")
+  for i in (1..Total)
+    if i == Total 
+      NameArr[i] = "TachyonMaster"
+    else
+      NameArr[i] = "TachyonWorker#{i}"
+    end
+    if file != nil
+      file.write(NameArr[i] + ".local"  + "\n")
+    end
+    if hosts != nil
+      hosts.write(Addr[i - 1] + " " + 
+                  NameArr[i] + ".local" + "\n")
+    end
+  end
+  hosts.close unless hosts == nil
+end
+
 OVERWRITE_HOSTS = "files/hosts.overwrite"
 # Vagrantfile API/syntax version. 
 VAGRANTFILE_API_VERSION = "2"
@@ -46,7 +60,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "#{name}" do |n|
       # common config
       if File.exist?(OVERWRITE_HOSTS) && Provider == "openstack"
-        n.vm.provision "file", source: OVERWRITE_HOSTS, destination: "/vagrant/files/hosts"
+        n.vm.provision "file", source: OVERWRITE_HOSTS, destination: "/tachyon/deploy/vagrant/files/hosts"
       end
       n.vm.provision "shell", path: "init.sh"
       n.vm.provision "shell", path: Init
