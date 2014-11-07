@@ -85,6 +85,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         eval File.open('config_aws.rb').read
         config_aws(n, i, Total, name)
       end
+
+      if Provider == "openstack"
+        n.vm.box = "dummy"
+        n.vm.box_url = "https://github.com/cloudbau/vagrant-openstack-plugin/raw/master/dummy.box"
+        @os = YAML.load_file('openstack-config.yml')
+        puts @os.inspect
+        FLAVOR = @os['Flavor']
+        IMAGE =  @os['Image']
+        KEY_PATH = @os['Key_Path']
+        KEYPAIR_NAME = @os['Keypair_Name']
+        KEYSTONE = @os['Keystone_URL']
+        SECURITY_GROUP = @os['Security_Group']
+        SSH_USERNAME = @os['SSH_Username']
+        # Make sure the private key from the key pair is provided
+        n.ssh.private_key_path = KEY_PATH
+        n.vm.synced_folder "../../", "/tachyon", type: "rsync", 
+                           rsync__exclude: ["../../.git/", "shared/"]
+        n.vm.synced_folder "./", "/vagrant", type: "rsync", 
+                          rsync__exclude: ["shared/"]
+        eval File.open('config_os.rb').read
+        config_os(n, i, Total, name)
+      end
     end
   end
 end
