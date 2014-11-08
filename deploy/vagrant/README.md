@@ -57,7 +57,7 @@ the VM as `root` and password as `vagrant`.
 
 Install aws vagrant plugin first. To date, 0.5.0 plugin is tested.
 
-    `vagrant plugin install vagrant-aws`
+    vagrant plugin install vagrant-aws
 
 Then update configurations in `ec2-config.yml` and shell environment variables `AWS_ACCESS_KEY` and
 `AWS_SECRET_KEY`.
@@ -68,7 +68,7 @@ Run `vagrant up --provider=aws [--no-parallel]` to create EC2 instances.
 
 Install openstack vagrant plugin first. To date, 0.8.0 plugin is tested.
 
-    `vagrant plugin install vagrant-openstack-plugin`
+    vagrant plugin install vagrant-openstack-plugin
 
 Then update configurations in `openstack-config.yml` and shell environment variables `OS_USERNAME` and `OS_PASSWORD`.
 
@@ -98,14 +98,12 @@ The `no-parallel` option starts the cluster nodes serially.
 ## Examples of Running OpenStack Compute Node Clusters Using HDFS 2.4 as Underfilesystem
 
 A sample `init.yml.os` is provided. Copy or link it to `init.yml`. Make sure parameter `Ufs` is
-`hadoop2` and `Provider` is `openstack`. Change the rest of parameters, especially network addresses, to
-what you want if necessary.
+`hadoop2` and `Provider` is `openstack`. The `Addresses` are currently not used. 
 
 Then start the clusters.
 
-    vagrant up --provider=aws [--no-parallel]
+    ./run_openstack.sh
 
-The `no-parallel` option starts the cluster nodes serially.
 
 ## Use Tachyon Cluster
 

@@ -10,6 +10,7 @@ Total: 2
 # The last one is designated as Tachyon master
 # For VirtualBox: the addresses can be arbitrary
 # For AWS: the addresses should be within the same availability zone
+# For OpenStack: these addresses are not used. 
 Addresses:
     - "n/a"
     - "n/a"
