@@ -14,7 +14,7 @@ def config_os(config, i, total, name)
     os.ssh_username = SSH_USERNAME
     os.keypair_name = KEYPAIR_NAME
     os.floating_ip = "auto"
-    os.server_name = name
+    os.server_name = TAG + name
     config.vm.provision "shell", inline: 'sudo sed -i -e "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config'
     if i == total # last VM starts tachyon
       config.vm.provision "shell", path: Post
