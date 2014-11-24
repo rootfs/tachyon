@@ -5,7 +5,7 @@ cat > /etc/yum.repos.d/epel.repo <<EOF
 [epel]
 name=Extra Packages for Enterprise Linux 6 - $basearch
 mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=\$basearch
-failovermethod=priority
+#failovermethod=priority
 enabled=1
 gpgcheck=0
 

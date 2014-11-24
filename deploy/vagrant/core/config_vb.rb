@@ -24,9 +24,9 @@ def config_vb(config, i, total, name)
             vb.customize ['createhd', '--filename', disk_file, '--size', disk[j] * 1024]
           end
           if j == 0
-            vb.customize ['storagectl', :id, '--name', "SATA Controller", '--add', 'sata']
+            vb.customize ['storagectl', :id, '--name', "SCSI Controller", '--add', 'scsi']
           end
-          vb.customize ['storageattach', :id, '--storagectl', "SATA Controller", '--port', j + 1, '--device', 0, '--type', 'hdd', '--medium', disk_file]
+          vb.customize ['storageattach', :id, '--storagectl', "SCSI Controller", '--port', j + 1, '--device', 0, '--type', 'hdd', '--medium', disk_file]
         end
       end
     end

@@ -21,11 +21,18 @@ ceph-deploy new ${MASTER}
 ceph-deploy mon create ${MASTER}
 ceph-deploy gatherkeys ${MASTER}  
 
+
+# choose disks to be used as osd
+# ceph-disk list can list unused disks
+DISKS=`ceph-disk list 2>&1 |grep unknown|awk '{print $1}'`
 #create ceph osd  
 for i in ${NODES[@]}
 do
-    ceph-deploy disk zap ${i}:sdb
-    ceph-deploy osd create ${i}:sdb
+    for disk in ${DISKS}
+    do
+        ceph-deploy disk zap ${i}:${disk}
+        ceph-deploy osd create ${i}:${disk}
+    done
 done
 
 ceph-deploy admin ${CLUSTER}
@@ -43,7 +50,7 @@ ceph osd tree
 #ceph health should be clean+ok  
 ceph health  
 # create a pool
-ceph osd pool create data 128
+ceph osd pool create data 4096
 rados -p data ls  
 #create a file in the pool  
 rados -p data put group /etc/group  
