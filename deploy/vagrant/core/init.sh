@@ -2,6 +2,16 @@
 # uncomment it for debugging
 #set -x
 
+if [  -f /selinux/enforce ]
+then
+    echo 0 >/selinux/enforce
+fi
+
+if [ -f /etc/ssh/sshd_config ]
+then
+    sudo sed -i -e "s/PasswordAuthentication no/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+fi
+
 mkdir -p /vagrant/shared
 cd /vagrant/shared
 sudo yum install -y -q wget 
