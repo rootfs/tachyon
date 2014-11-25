@@ -65,7 +65,7 @@ ceph fs new cephfs cephfs_metadata cephfs_data
 
 #mount ceph fs  
 yum install -y ceph-fuse  
-mkdir -p /mnt/ceph 
-ret=`timeout 60s ceph-fuse -m ${MASTER}:6789 /mnt/ceph`
-echo "mount status " ${ret}
+#mkdir -p /mnt/ceph 
+#timeout 60s ceph-fuse -m ${MASTER}:6789 /mnt/ceph
+#echo "mount status " $?
 #should see cephfs mounted  
