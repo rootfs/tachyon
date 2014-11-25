@@ -56,3 +56,16 @@ rados -p data ls
 rados -p data put group /etc/group  
 #see if the file is created  
 rados -p data ls  
+
+# create ceph fs
+ceph-deploy mds create ${MASTER}
+ceph osd pool create cephfs_data 4096
+ceph osd pool create cephfs_metadata 4096
+ceph fs new cephfs cephfs_metadata cephfs_data
+
+#mount ceph fs  
+yum install -y ceph-fuse  
+mkdir -p /mnt/ceph 
+ret=`timeout 60s ceph-fuse -m ${MASTER}:6789 /mnt/ceph`
+echo "mount status " ${ret}
+#should see cephfs mounted  
