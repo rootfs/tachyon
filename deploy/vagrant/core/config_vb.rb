@@ -16,7 +16,7 @@ def config_vb(config, i, total, name)
     vb.gui = true
 
     disk = @cmd['Disk']
-    if disk.length > 0
+    if disk != nil and disk.length > 0
       (0..disk.length).each do |j|    
         if disk[j].is_a? Integer      
           disk_file = "files/#{name}_disk_#{j}_#{disk[j]}GB.vdi"
