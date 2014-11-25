@@ -13,8 +13,9 @@ EOF
 
 sudo yum update -q
 sudo rpm -Uvh http://ceph.com/rpm/rhel6/noarch/ceph-release-1-0.el6.noarch.rpm
-yum install ceph-release python-itsdangerous python-werkzeug python-jinja2 python-flask -y -q
+yum install ceph-release python-itsdangerous python-werkzeug python-jinja2 python-flask java-1.7.0-openjdk-devel jna juit -y -q
 echo "export HOME=/root" >> ~/.bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64">> ~/.bashrc
 # build tachyon pkg
 #cd /tachyon
-#mvn -q install -Dtest.profile=glusterfs -Dhadoop.version=2.3.0  -DskipTests
+#mvn -q install -Dtest.profile=rados -Djava.version=1.7 -DskipTests
