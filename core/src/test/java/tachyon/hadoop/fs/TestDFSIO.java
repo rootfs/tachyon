@@ -212,7 +212,6 @@ public class TestDFSIO implements Tool {
     mLocalTachyonCluster.start();
 
     mLocalTachyonClusterUri = URI.create(mLocalTachyonCluster.getMasterUri());
-    bench.getConf().set("fs.defaultFS", mLocalTachyonClusterUri.toString());
     bench.getConf().set("fs.default.name", mLocalTachyonClusterUri.toString());
     bench.getConf().set("fs." + Constants.SCHEME + ".impl", TFS.class.getName());
     FileSystem fs = FileSystem.get(mLocalTachyonClusterUri, bench.getConf());
