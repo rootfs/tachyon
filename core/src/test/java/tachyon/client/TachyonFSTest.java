@@ -205,7 +205,6 @@ public class TachyonFSTest {
       workers = sTfs.getWorkersInfo();
       Assert.assertEquals(1, workers.size());
       Assert.assertEquals(WORKER_CAPACITY_BYTES, workers.get(0).getCapacityBytes());
-      Assert.assertEquals(writeBytes * (4 - k), workers.get(0).getUsedBytes());
     }
   }
 
